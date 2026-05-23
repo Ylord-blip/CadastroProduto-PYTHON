@@ -88,28 +88,52 @@ def registrar_entrada():
         print("Estoque atualizado")
 
 def registrar_saida():
-        produto_id = int(input("Qual o ID do produto?"))
-        quantidade_retirada = int(input("Qual a quantidade a ser retirada?"))
+        list_products = cursor.execute('SELECT * FROM produtos').fetchall()
 
-        
-        cursor.execute("""
-        UPDATE produtos
-        SET quantidade = quantidade - ?
-        WHERE id = ?
-        """, (quantidade_retirada, produto_id))
-        
+        for produto in list_products:
+          print(f"ID: {produto[0]} | Nome: {produto[1]} | Preço: R${produto[2]} | Quantidade: {produto[3]} | Categoria: {produto[4]}")
+
+
+        produto_id = int(input("Qual o ID do produto?"))
+        # Fix: Pass produto_id as a single-element tuple (produto_id,)
+        # Fix: Use fetchone() to get the actual quantity, not just the cursor object
+        qtde_estoque_result = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""", (produto_id,)).fetchone()
         conexao.commit()
 
-        print("Estoque retirado")
 
+        if qtde_estoque_result:
+          qtde_atual = qtde_estoque_result[0]
+
+          quantidade_retirada = int(input("Qual a quantidade a ser retirada?"))
+        
+          if (quantidade_retirada <= qtde_atual):
+            cursor.execute("""
+            UPDATE produtos
+            SET quantidade = ?
+            WHERE id = ?
+            """, (qtde_atual - quantidade_retirada, produto_id))
+            conexao.commit()
+          else:
+            print("Quantidade indisponível")
+        else:
+          print("Produto não encontrado")
+        
+        print("Estoque atualizado")
+        consultar_estoque()
+
+def estoque_abaixo_limite():
+      Consulta = cursor.execute('SELECT quantidade FROM produtos').fetchall()
+
+      for Linha in Consulta:
+        if Linha <= 15:
+          print("Estoque abaixo")
 
 while True:
     print("\n1 - Cadastrar produto")
     print("2 - Consultar produtos")
     print("3 - Registrar Entrada")
     print("4 - Registrar Saída")
-    print("5 - Consultar Estoque")
-    print("6 - Estoque abaixo do limite")
+    print("5 - Estoque abaixo do limite")
     print("0 - Sair")
 
     opcao = int(input("Escolha: "))
@@ -127,9 +151,6 @@ while True:
         registrar_saida()
 
     elif opcao == 5:
-        consultar_estoque()
-
-    elif opcao == 6:
         estoque_abaixo_limite()
 
     elif opcao == 0:
