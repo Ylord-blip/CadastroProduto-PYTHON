@@ -76,7 +76,7 @@ def cadastrar_produto(nome, categoria, preco, quantidade):
 
         
 def consultar_estoque(produto_id):
-    elif opcao == 2:
+    if opcao == 2:
         cursor.execute("SELECT * FROM produtos")
         produtos = cursor.fetchall()
 
@@ -100,7 +100,7 @@ def registrar_saida(produto_id, quantidade):
 
         print("Estoque atualizado")
 
-   if opcao == 0:
+    if opcao == 0:
         print("Saindo...")
         break
 
