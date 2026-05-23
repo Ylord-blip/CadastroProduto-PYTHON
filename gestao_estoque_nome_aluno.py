@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS produtos (
 )
 """)
 
-
 conexao.commit()
 def cadastrar_produto():
         nome = input("Nome do produto: ")
@@ -90,17 +89,18 @@ def registrar_entrada():
 
 def registrar_saida():
         produto_id = int(input("Qual o ID do produto?"))
-        quantidade = int(input("Qual a quantidade adicionada?"))
+        quantidade_retirada = int(input("Qual a quantidade a ser retirada?"))
 
+        
         cursor.execute("""
-        DELETE FROM produtos
-        SET quantidade = quantidade + ?
+        UPDATE produtos
+        SET quantidade = quantidade - ?
         WHERE id = ?
-        """, (quantidade, produto_id))
+        """, (quantidade_retirada, produto_id))
+        
         conexao.commit()
 
-        for produto in produtos:
-            print(f"ID: {produto[0]} | Nome: {produto[1]} | Preço: R${produto[2]} | Quantidade: {produto[3]} | Categoria: {produto[4]}")
+        print("Estoque retirado")
 
 
 while True:
