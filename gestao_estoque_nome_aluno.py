@@ -1,36 +1,3 @@
-produtos = [
-    {
-        "nome": "Mouse Gamer",
-        "preco": 89.90,
-        "quantidade": 15,
-        "categoria": "Periféricos"
-    },
-    {
-        "nome": "Teclado Mecânico",
-        "preco": 249.90,
-        "quantidade": 8,
-        "categoria": "Periféricos"
-    },
-    {
-        "nome": "Monitor 24 polegadas",
-        "preco": 799.90,
-        "quantidade": 25,
-        "categoria": "Monitores"
-    },
-    {
-        "nome": "Headset Gamer",
-        "preco": 159.90,
-        "quantidade": 12,
-        "categoria": "Áudio"
-    },
-    {
-        "nome": "Webcam Full HD",
-        "preco": 199.90,
-        "quantidade": 30,
-        "categoria": "Acessórios"
-    }
-]
-
 import sqlite3
 
 conexao = sqlite3.connect("estoque.db")
@@ -128,19 +95,24 @@ def registrar_saida():
         consultar_estoque()
 
 def estoque_abaixo_limite():
-    qtde_estoque_resuslt = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""",).fetchone()
+    cursor.execute("""SELECT nome, quantidade 
+                   FROM produtos 
+                   WHERE quantidade < 15""")
     conexao.commit()
 
-    if (qtde_estoque_resuslt <= "15"):
-            cursor.execute("""
-            UPDATE produtos
-            SET quantidade = ?
-            WHERE id = ?
-            """, (qtde_estoque_resuslt))
-            conexao.commit()
-            print("Seu banco está abaixo do limite do estoque")
+    qtde_estoque = cursor.fetchall()
+
+
+    if qtde_estoque:
+        print("\nSeu estoque está abaixo do limite")
+
+        for produto in qtde_estoque:
+            nome = produto[0]
+            quantidade = produto[1]
+            print(f"Nome: {nome} e Quantidade: {quantidade}")
     else:
-        print("A quantidade está acima do limite")
+        print("Seu estoque está acima do limite")    
+
 while True:
     print("\n1 - Cadastrar produto")
     print("2 - Consultar produtos")
