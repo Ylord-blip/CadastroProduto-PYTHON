@@ -128,17 +128,15 @@ def registrar_saida():
         consultar_estoque()
 
 def estoque_abaixo_limite():
-    Consulta = cursor.execute('SELECT quantidade FROM produtos WHERE id = ?').fetchall()
-
     qtde_estoque_resuslt = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""",).fetchone()
     conexao.commit()
 
-    if (Consulta <= "15"):
+    if (qtde_estoque_resuslt <= "15"):
             cursor.execute("""
             UPDATE produtos
             SET quantidade = ?
             WHERE id = ?
-            """, (qtde_atual, Consulta))
+            """, (qtde_estoque_resuslt))
             conexao.commit()
             print("Seu banco está abaixo do limite do estoque")
     else:
