@@ -1,4 +1,5 @@
 # Sistema de Gestão de Estoque
+<img src"<img width="2043" height="144" alt="Captura de tela 2026-05-25 182313" src="https://github.com/user-attachments/assets/6f10050c-cc30-43d6-9781-e338a339d839" />
 
 ## Descrição do Projeto
 
@@ -51,5 +52,3 @@ O projeto foi desenvolvido como atividade acadêmica da disciplina de programaç
 ```bash
 git clone LINK_DO_SEU_REPOSITORIO
 
-<img src"<img width="2043" height="144" alt="Captura de tela 2026-05-25 182313" src="https://github.com/user-attachments/assets/6f10050c-cc30-43d6-9781-e338a339d839" />
-"
