@@ -130,7 +130,7 @@ def registrar_saida():
 def estoque_abaixo_limite():
     Consulta = cursor.execute('SELECT quantidade FROM produtos WHERE id = ?').fetchall()
 
-    qtde_estoque_result = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""").fetchone()
+    qtde_estoque_resuslt = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""",).fetchone()
     conexao.commit()
 
     if (Consulta <= "15"):
