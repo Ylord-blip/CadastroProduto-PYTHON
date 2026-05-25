@@ -61,19 +61,19 @@ git clone LINK_DO_SEU_REPOSITORIO
 2. Entrar na pasta do projeto
 
 Depois de clonar, entre na pasta do projeto:
-
+```bash
 cd NOME_DA_PASTA
-
+```
 3. Verificar se o Python está instalado
 
 Digite:
-
+```bash
 python --version
-
+```
 4. Executar o sistema
 
 Execute o arquivo principal:
-
+```bash
 python gestao_estoque_pedro.py
 
 
