@@ -1,5 +1,6 @@
 # Sistema de Gestão de Estoque
-<img width="2043" height="144" alt="Captura de tela 2026-05-25 182313" src="https://github.com/user-attachments/assets/6f10050c-cc30-43d6-9781-e338a339d839" />
+<img width="2300" height="195" alt="Captura de tela 2026-05-25 182734" src="https://github.com/user-attachments/assets/c6bfd683-807f-4299-92fd-af64178fa130" />
+
 
 ## Descrição do Projeto
 
