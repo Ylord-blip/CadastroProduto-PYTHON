@@ -74,6 +74,11 @@ def consultar_estoque():
 
 
 def registrar_entrada():
+        list_products = cursor.execute('SELECT * FROM produtos').fetchall()
+
+        for produto in list_products:
+          print(f"ID: {produto[0]} | Nome: {produto[1]} | Preço: R${produto[2]} | Quantidade: {produto[3]} | Categoria: {produto[4]}")
+
         produto_id = int(input("Qual o ID do produto?"))
         quantidade = int(input("Qual a quantidade adicionada?"))
 
@@ -86,6 +91,7 @@ def registrar_entrada():
         conexao.commit()
 
         print("Estoque atualizado")
+        consultar_estoque()
 
 def registrar_saida():
         list_products = cursor.execute('SELECT * FROM produtos').fetchall()
@@ -122,12 +128,21 @@ def registrar_saida():
         consultar_estoque()
 
 def estoque_abaixo_limite():
-      Consulta = cursor.execute('SELECT quantidade FROM produtos').fetchall()
+    Consulta = cursor.execute('SELECT quantidade FROM produtos WHERE id = ?').fetchall()
 
-      for Linha in Consulta:
-        if Linha <= 15:
-          print("Estoque abaixo")
+    qtde_estoque_result = cursor.execute("""SELECT quantidade FROM produtos WHERE id = ?""").fetchone()
+    conexao.commit()
 
+    if (Consulta <= "15"):
+            cursor.execute("""
+            UPDATE produtos
+            SET quantidade = ?
+            WHERE id = ?
+            """, (qtde_atual, Consulta))
+            conexao.commit()
+            print("Seu banco está abaixo do limite do estoque")
+    else:
+        print("A quantidade está acima do limite")
 while True:
     print("\n1 - Cadastrar produto")
     print("2 - Consultar produtos")
