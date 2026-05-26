@@ -74,6 +74,6 @@ python --version
 
 Execute o arquivo principal:
 ```bash
-python gestao_estoque_pedro.py
+python gestao_estoque_pedro_vinicius.py
 
 
